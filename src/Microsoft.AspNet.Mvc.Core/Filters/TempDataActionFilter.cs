@@ -7,14 +7,12 @@ namespace Microsoft.AspNet.Mvc
     {
         public void OnActionExecuting([NotNull] ActionExecutingContext context)
         {
-            var controller = context.Controller as Controller;
-            controller.TempData.Load(context, controller.TempDataProvider);
         }
 
         public void OnActionExecuted([NotNull] ActionExecutedContext context)
         {
             var controller = context.Controller as Controller;
-            controller.TempData.Save(context, controller.TempDataProvider);
+            controller.TempData.Save();
         }
     }
 }

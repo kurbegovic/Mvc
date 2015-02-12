@@ -7,8 +7,8 @@ namespace Microsoft.AspNet.Mvc
 {
     public interface ITempDataProvider
     {
-        IDictionary<string, object> LoadTempData([NotNull] ActionExecutingContext context);
+        IDictionary<string, object> LoadTempData([NotNull] ActionContext context);
 
-        void SaveTempData([NotNull] ActionExecutedContext context, IDictionary<string, object> values);
+        void SaveTempData([NotNull] ActionContext context, IDictionary<string, object> values);
     }
 }
