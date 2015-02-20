@@ -30,6 +30,28 @@ namespace Microsoft.AspNet.Mvc.FunctionalTests
             nameof(DataMemberAttribute.IsRequired),
             bool.TrueString);
 
+        [Fact]
+        public async Task ThrowsOnInvalidInput_AndAddsToModelState()
+        {
+            // Arrange
+            var server = TestServer.Create(_services, _app);
+            var client = server.CreateClient();
+            var input = "Not a valid xml document";
+            var content = new StringContent(input, Encoding.UTF8, "application/xml-dcs");
+
+            // Act
+            var response = await client.PostAsync("http://localhost/Home/Index", content);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            var data = await response.Content.ReadAsStringAsync();
+            Assert.Contains(
+                string.Format(
+                    "dummyObject:There was an error deserializing the object of type {0}",
+                    typeof(DummyClass).FullName), 
+                data);
+        }
+
         // Verifies that even though all the required data is posted to an action, the model
         // state has errors related to value types's Required attribute validation.
         [Fact]
