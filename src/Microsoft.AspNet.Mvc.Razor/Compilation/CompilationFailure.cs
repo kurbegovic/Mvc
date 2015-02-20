@@ -2,51 +2,40 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System.Collections.Generic;
-using Microsoft.AspNet.Diagnostics;
+using Microsoft.Framework.Runtime;
 
 namespace Microsoft.AspNet.Mvc.Razor
 {
     /// <summary>
-    /// Default implementation of <see cref="ICompilationFailure"/>.
+    /// <see cref="ICompilationFailure"/> for Razor parse failures.
     /// </summary>
-    public class CompilationFailure : ICompilationFailure
+    public class RazorCompilationFailure : ICompilationFailure
     {
-        /// <summary>Initializes a new instance of <see cref="CompilationFailure"/>.</summary>
-        /// <param name="filePath">The path of the Razor source file that was compiled.</param>
-        /// <param name="fileContent">The contents of the Razor source file.</param>
-        /// <param name="compiledContent">The generated C# content that was compiled.</param>
+        /// <summary>Initializes a new instance of <see cref="RazorCompilationFailure"/>.</summary>
+        /// <param name="sourceFilePath">The path of the Razor source file that was compiled.</param>
+        /// <param name="sourceFileContent">The contents of the Razor source file.</param>
         /// <param name="messages">A sequence of <see cref="ICompilationMessage"/> encountered
         /// during compilation.</param>
-        public CompilationFailure(
-                [NotNull] string filePath,
-                [NotNull] string fileContent,
-                [NotNull] string compiledContent,
-                [NotNull] IEnumerable<ICompilationMessage> messages)
+        public RazorCompilationFailure(
+            [NotNull] string sourceFilePath,
+            [NotNull] string sourceFileContent,
+            [NotNull] IEnumerable<RazorCompilationMessage> messages)
         {
-            SourceFilePath = filePath;
-            SourceFileContent = fileContent;
+            SourceFilePath = sourceFilePath;
+            SourceFileContent = sourceFileContent;
             Messages = messages;
-            CompiledContent = compiledContent;
         }
 
-        /// <summary>
-        /// Gets the path of the Razor source file that produced the compilation failure.
-        /// </summary>
+        /// <inheritdoc />
         public string SourceFilePath { get; }
 
-        /// <summary>
-        /// Gets the content of the Razor source file.
-        /// </summary>
+        /// <inheritdoc />
         public string SourceFileContent { get; }
 
-        /// <summary>
-        /// Gets the generated C# content that was compiled.
-        /// </summary>
-        public string CompiledContent { get; }
+        /// <inheritdoc />
+        public string CompiledContent { get; } = null;
 
-        /// <summary>
-        /// Gets a sequence of <see cref="ICompilationMessage"/> instances encountered during compilation.
-        /// </summary>
+        /// <inheritdoc />
         public IEnumerable<ICompilationMessage> Messages { get; }
     }
 }

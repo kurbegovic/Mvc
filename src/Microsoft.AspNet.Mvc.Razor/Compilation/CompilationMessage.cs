@@ -1,30 +1,34 @@
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using Microsoft.AspNet.Diagnostics;
+using Microsoft.AspNet.Razor.Parser.SyntaxTree;
+using Microsoft.Framework.Runtime;
 
 namespace Microsoft.AspNet.Mvc.Razor
 {
     /// <summary>
-    /// Represents a message encountered during compilation.
+    /// <see cref="ICompilationMessage"/> for a <see cref="RazorError"/> encountered during parsing.
     /// </summary>
-    public class CompilationMessage : ICompilationMessage
+    public class RazorCompilationMessage : ICompilationMessage
     {
         /// <summary>
-        /// Initializes a <see cref="CompilationMessage"/> with the specified message.
+        /// Initializes a <see cref="RazorCompilationMessage"/> with the specified message.
         /// </summary>
-        /// <param name="message">A message <see cref="string"/> produced from compilation.</param>
-        public CompilationMessage(string message,
-                                  int startColumn,
-                                  int startLine,
-                                  int endColumn,
-                                  int endLine)
+        /// <param name="razorError">A <see cref="RazorError"/>.</param>
+        /// <param name="sourceFilePath">The path of the Razor source file that was parsed.</param>
+        public RazorCompilationMessage(
+            [NotNull] RazorError razorError,
+            string sourceFilePath)
         {
-            Message = message;
-            StartColumn = startColumn;
-            StartLine = startLine;
-            EndColumn = endColumn;
-            EndLine = endLine;
+            SourceFilePath = sourceFilePath;
+            Message = razorError.Message;
+            FormattedMessage = razorError.Message;
+
+            var location = razorError.Location;
+            StartColumn = location.CharacterIndex;
+            StartLine = location.LineIndex;
+            EndColumn = location.CharacterIndex + razorError.Length;
+            EndLine = location.LineIndex;
         }
 
         /// <summary>
@@ -44,10 +48,20 @@ namespace Microsoft.AspNet.Mvc.Razor
         /// <inheritdoc />
         public int EndLine { get; }
 
+        /// <inheritdoc />
+        public string SourceFilePath { get; }
+
+        /// <inheritdoc />
+        public string FormattedMessage { get; }
+
+        /// <inheritdoc />
+        // All Razor diagnostics are errors
+        public CompilationMessageSeverity Severity { get; } = CompilationMessageSeverity.Error;
+
         /// <summary>
-        /// Returns a <see cref="string"/> representation of this instance of <see cref="CompilationMessage"/>.
+        /// Returns a <see cref="string"/> representation of this instance of <see cref="RazorCompilationMessage"/>.
         /// </summary>
-        /// <returns>A <see cref="string"/> representing this <see cref="CompilationMessage"/> instance.</returns>
+        /// <returns>A <see cref="string"/> representing this <see cref="RazorCompilationMessage"/> instance.</returns>
         /// <remarks>Returns same value as <see cref="Message"/>.</remarks>
         public override string ToString()
         {
