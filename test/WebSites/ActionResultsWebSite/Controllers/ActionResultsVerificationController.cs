@@ -85,6 +85,16 @@ namespace ActionResultsWebSite
             return result;
         }
 
+        public IActionResult GetNotFoundObjectResult()
+        {
+            return HttpNotFound(null);
+        }
+
+        public IActionResult GetNotFoundObjectResultWithContent()
+        {
+            return HttpNotFound("Test Content");
+        }
+
         public DummyClass GetDummy(int id)
         {
             return CreateDummy();
