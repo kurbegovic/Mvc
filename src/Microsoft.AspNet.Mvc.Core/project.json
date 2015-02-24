@@ -13,6 +13,7 @@
     "Microsoft.AspNet.Mvc.ModelBinding": "6.0.0-*",
     "Microsoft.AspNet.Routing": "1.0.0-*",
     "Microsoft.AspNet.Authentication": "1.0.0-*",
+    "Microsoft.AspNet.Authorization": "1.0.0-*",
     "Microsoft.AspNet.Security.DataProtection": "1.0.0-*",
     "Microsoft.Framework.CopyOnWriteDictionary.Internal": { "version": "1.0.0-*", "type": "build" },
     "Microsoft.Framework.NotNullAttribute.Internal": { "version": "1.0.0-*", "type": "build" },
