@@ -92,7 +92,7 @@ namespace ActionResultsWebSite
 
         public IActionResult GetNotFoundObjectResultWithContent()
         {
-            return HttpNotFound("Test Content");
+            return HttpNotFound(CreateDummy());
         }
 
         public DummyClass GetDummy(int id)

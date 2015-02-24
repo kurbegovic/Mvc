@@ -229,7 +229,6 @@ namespace Microsoft.AspNet.Mvc
             var httpNotFoundObjectResult = Assert.IsType<HttpNotFoundObjectResult>(result);
             Assert.Equal(StatusCodes.Status404NotFound, httpNotFoundObjectResult.StatusCode);
             Assert.Equal("Test Content", httpNotFoundObjectResult.Value);
-
         }
 
         [Fact]

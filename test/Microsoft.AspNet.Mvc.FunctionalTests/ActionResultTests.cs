@@ -310,17 +310,19 @@ namespace Microsoft.AspNet.Mvc.FunctionalTests
             // Arrange
             var server = TestServer.Create(_provider, _app);
             var client = server.CreateClient();
+            var input = "{\"SampleInt\":10}";
 
             var request = new HttpRequestMessage(
-                HttpMethod.Get,
+                HttpMethod.Post,
                 "http://localhost/ActionResultsVerification/GetNotFoundObjectResultWithContent");
+            request.Content = new StringContent(input, Encoding.UTF8, "application/json");
 
             // Act
             var response = await client.SendAsync(request);
 
             // Assert
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-            Assert.Equal("Test Content", await response.Content.ReadAsStringAsync());
+            Assert.Equal("{\"SampleInt\":10,\"SampleString\":\"Foo\"}", await response.Content.ReadAsStringAsync());
         }
     }
 }
