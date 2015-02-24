@@ -224,7 +224,7 @@ namespace Microsoft.AspNet.Mvc
         {
             // Arrange
             var contentBytes = Encoding.UTF8.GetBytes("{\"Id\":\"null\",\"Name\":\"Programming C#\"}");
-            var jsonFormatter = new JsonInputFormatter() { CaptureDeserilizationErrors = true };
+            var jsonFormatter = new JsonInputFormatter();
             var actionContext = GetActionContext(contentBytes, "application/json;charset=utf-8");
             var metadata = new EmptyModelMetadataProvider().GetMetadataForType(typeof(Book));
             var inputFormatterContext = new InputFormatterContext(actionContext, metadata.ModelType);
@@ -251,7 +251,7 @@ namespace Microsoft.AspNet.Mvc
         {
             // Arrange
             var contentBytes = Encoding.UTF8.GetBytes("{ \"Name\" : \"Programming C#\"}");
-            var jsonFormatter = new JsonInputFormatter() { CaptureDeserilizationErrors = true };
+            var jsonFormatter = new JsonInputFormatter();
             var actionContext = GetActionContext(contentBytes, "application/json;charset=utf-8");
             var metadata = new EmptyModelMetadataProvider().GetMetadataForType(type);
             var inputFormatterContext = new InputFormatterContext(actionContext, metadata.ModelType);
@@ -272,7 +272,7 @@ namespace Microsoft.AspNet.Mvc
         {
             // Arrange
             var contentBytes = Encoding.UTF8.GetBytes("{\"Longitude\":{}}");
-            var jsonFormatter = new JsonInputFormatter() { CaptureDeserilizationErrors = true };
+            var jsonFormatter = new JsonInputFormatter();
             var actionContext = GetActionContext(contentBytes, "application/json;charset=utf-8");
             var metadata = new EmptyModelMetadataProvider().GetMetadataForType(typeof(GpsCoordinate));
             var inputFormatterContext = new InputFormatterContext(actionContext, metadata.ModelType);
@@ -301,7 +301,7 @@ namespace Microsoft.AspNet.Mvc
         {
             // Arrange
             var contentBytes = Encoding.UTF8.GetBytes("{\"Name\":\"Seattle\"}");
-            var jsonFormatter = new JsonInputFormatter() { CaptureDeserilizationErrors = true };
+            var jsonFormatter = new JsonInputFormatter();
             var actionContext = GetActionContext(contentBytes, "application/json;charset=utf-8");
             var metadata = new EmptyModelMetadataProvider().GetMetadataForType(typeof(Location));
             var inputFormatterContext = new InputFormatterContext(actionContext, metadata.ModelType);
@@ -322,7 +322,7 @@ namespace Microsoft.AspNet.Mvc
         {
             // Arrange
             var contentBytes = Encoding.UTF8.GetBytes("{}");
-            var jsonFormatter = new JsonInputFormatter() { CaptureDeserilizationErrors = true };
+            var jsonFormatter = new JsonInputFormatter();
             var actionContext = GetActionContext(contentBytes, "application/json;charset=utf-8");
             var metadata = new EmptyModelMetadataProvider().GetMetadataForType(typeof(Venue));
             var inputFormatterContext = new InputFormatterContext(actionContext, metadata.ModelType);
